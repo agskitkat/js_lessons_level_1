@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesso 1</title>
+    
+    <script async src="async_1.js"></script>
+    <script async src="async_2.js"></script>
+    
+    <script defer src="defer_1.js"></script>
+    <script defer src="defer_2.js"></script>
+    
+</head>
+<body>
+    
+</body>
+    <script>
+        "use strict";
+        /*
+            1) Задать температуру в градусах по Цельсию. Вывести в alert соответствующую температуру в градусах по Фаренгейту. Подсказка: расчёт идёт по формуле: Tf = (9 / 5) * Tc + 32, где Tf – температура по Фаренгейту, Tc – температура по Цельсию
+            Немного усложнил себе задачку.
+        */
+        function convertCelsiumToFaringate(checkError) {
+            let answerm = prompt(!checkError?'Введите температуру в градусах Цельсия':'Пожалуйста, введите число');
+            if(!answerm) {
+               return;
+            }
+            let Tc = parseFloat(answerm); // NaN or Float
+            if(!isNaN(Tc)) {    // Проверяем, что ввели число
+                let Tf = (9 / 5) * Tc + 32;
+                alert(`Температура по Фаренгейту: ${Tf}`);
+            } else {
+                convertCelsiumToFaringate(true);
+            }
+            return;
+        }
+        convertCelsiumToFaringate(false);
+        
+        
+        /*
+            3) Объявить две переменные: admin и name. Записать в name строку "Василий"; Скопировать значение из name в admin. Вывести admin (должно вывести «Василий»).
+        */
+        let name = 'Василий';
+        let admin;
+        admin = name;
+        console.log(admin); // Василий
+        
+        /*
+            4. *Чему будет равно JS-выражение 1000 + "108"/
+        */
+        console.log(1000 + "108"); // 1000108, число + строка = строка; (конкатенация строк)
+        
+        /*
+            5. *Самостоятельно разобраться с атрибутами тега script (async и defer)/
+            Ход процесса в консоле
+        */
+    </script>
+</html> 

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 3</title>
+</head>
+<body>
+    <script>
+	    // 1. С помощью цикла while вывести все простые числа в промежутке от 0 до 100.
+        let i = 1;
+        let res = [];
+        while(i <= 100) {
+            if(isSimplyNum(i)) {
+                res.push(i);
+            }
+            i++;
+        }
+        console.log(res);
+        
+        function isSimplyNum(n) {
+            if(n==1) {
+                return false;
+            }
+            for(let i = 2; (i*i) <= n; i++) {
+                if(n % i === 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // 2 
+        // С этого урока начинаем работать с функционалом интернет-магазина. Предположим, есть сущность корзины. Нужно реализовать функционал подсчета стоимости корзины в зависимости от находящихся в ней товаров.
+        
+        // 3. Товары в корзине хранятся в массиве. Задачи:
+        // a) Организовать такой массив для хранения товаров в корзине;
+        const cart = [
+            // [name, quantity, price]
+            ["Товар 1", 1, 100],
+            ["Товар 2", 5, 120],
+            ["Товар 3", 3, 50],
+            ["Товар 4", 2, 44]
+        ];
+        console.log("Корзина: ", cart);
+        // b) Организовать функцию countBasketPrice, которая будет считать стоимость корзины.
+        function countBasketPrice() {
+            let sumPrice = 0;
+            cart.forEach(function(item){
+               sumPrice += item[1] * item[2];
+            });
+            return sumPrice;
+        };
+        
+        console.log("Сумма в корзине: ", countBasketPrice());
+        
+        // 4.*Вывести с помощью цикла for числа от 0 до 9, не используя тело цикла. Выглядеть это должно так:
+        for(i = 0; i <= 9; console.log(i++)){};
+        
+        
+        // 5. *Нарисовать пирамиду с помощью console.log, как показано на рисунке, только у вашей пирамиды должно быть 20 рядов, а не 5:
+        for(let i = 0; i <= 20; console.log('x'.repeat(++i))){};
+        
+        // 6. *Написать свою реализацию функции forEach и map
+        let arForTest = [2,4,6,8,16,32,64,128,256,1024];
+        
+        var myForeach = function(array, callback) {
+            for(let i = 0; i < array.length; i++) {
+                callback(array[i], i);
+            }
+        } 
+        
+        myForeach(arForTest, function(val){
+            console.log(val);
+        });
+        
+        var myMap = function(array, doFunction) {
+            result = [];
+            for(let i = 0; i < array.length; i++) {
+                result[i] = doFunction(array[i]);
+            }
+            return result;
+        }
+        
+        let arResult = myMap(arForTest, function(val){
+            return val * 2;
+        });
+        
+        console.log("MAP:", arResult);
+        
+        
+        
+        // 7. *Написать свою реализацию функции forEach и map без использования цикла(рекурсия)
+        var myRecurceForeach = function(array, doFunction, i = 0) {  
+            doFunction(array[i], i);
+            if(i < (array.length - 1) ) {
+                myRecurceForeach(array, doFunction, ++i);
+            }
+            return;
+        }
+        
+         myRecurceForeach(arForTest, function(val, key){
+            console.log("Recurce", val, key);
+         });
+        
+        
+        var myRecurceMap = function(array, doFunction, i = 0, result = []) { 
+            if(i < array.length) {
+                result[i] = doFunction(array[i]);
+                result = myRecurceMap(array, doFunction, ++i, result);
+            }
+            return result;
+        }
+        
+        arResult = myRecurceMap(arForTest, function(val){
+            return val / 2;
+        });
+        
+        console.log("Recurce MAP:", arResult);
+        
+        
+        // 8. *Написать бота для игры написаной на вебинаре(код в гитлабе) - своя реализация
+        
+		var att = 0; // Попытки
+		var secretNumber = 0; // То число, которое необходимо угадать
+
+		var rn = function() {
+			return Math.floor((Math.random() * (10000 - 1000) ) + 1000);
+		}
+
+		function resetGame() { // Сбрасываем игру
+			secretNumber = rn();
+			att = 0;
+		} 
+		
+		function isValidNumber(arMyNumber) {
+			// Цикл проверки на числа
+			for(let i = 0; i < arMyNumber.length; i++) {
+				if(isNaN(+arMyNumber[i])) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+        var result = [0,0];
+		function runGame() { // Процесс игры
+			while(true) {
+                
+				//let myNumber = prompt("Введи 4 числа или оставь пустым, если здаёшься ! ");
+                let myNumber = advisor(result[0], result[1]); // Вызываем советника, получаем число.
+                
+				if(!myNumber) { // Хотим покинуть цикл.
+					alert("Пока !");
+					return;
+				}
+
+				var arMyNumber = myNumber.toString().split("");
+				
+				// Мало или много символов ввода, все ли символы цифры
+				if(arMyNumber.length != 4 || !isValidNumber(arMyNumber)) {
+					continue;
+				}
+						
+				++att; // Инкрементируем попытку
+				
+				result = [0,0];
+				var arSecretNumber = secretNumber.toString().split(""); // Превращем строку в массив
+				
+				for(let i = 0; i < arSecretNumber.length; i++) {
+					if(arMyNumber[i] === arSecretNumber[i]) {
+						result[1]++;
+						continue;
+					} 
+					
+					if(arMyNumber.indexOf(arSecretNumber[i]) != -1) {
+						result[0]++;
+						continue;
+					}
+				}
+                
+                console.log(`Вы сказали ${myNumber} Тут коров ${result[0]}, а быков ${result[1]} !`);
+				
+				if(result[1] === 4) {
+					//alert("You win ! Попыток:" + att);
+                    console.log(`Это победа Я загадал: ${secretNumber} ! Попыток: ${att}`);
+					break;
+				}
+                
+                if(att > 100) {
+                   console.log("You lose !" + secretNumber);
+                   break;
+                }
+				//console.log(arMyNumber, result);
+			}
+		}
+
+		// Бот-советник, подсказывает наиболее вероятные варианты
+        // В лоб по быкам сложность ~On^2+10 
+        // Впринципе можно оптимизировать до ~On^2/2, если использовать коров, но реально нет времени (
+        
+        var myLastNumber = 0; // Последняя введёная комбиниция
+        var checkInterator = -1;
+        var checkedNumbers = [];
+        var lastChekedNumbers = [];
+        var lastBull = 0;
+        var shuffleNum = 0; // переменная перемешивания массива
+        var alradyUsedNumbers = [];
+        
+        function resetAdvisor() {
+            myLastNumber = 0; // Последняя введёная комбиниция
+            checkInterator = -1;
+            checkedNumbers = [];
+            lastChekedNumbers = [];
+            lastBull = 0;
+            shuffleNum = 0; // переменная перемешивания массива
+        }
+        
+        
+		function advisor(cows, bulls) {
+            // Пробиваем числа
+            if(checkInterator < 10 && checkedNumbers.length != 4) {
+                if(bulls > 0) {
+                    for(let i = 0; i < bulls; i++) {
+                        checkedNumbers.push("" + checkInterator);
+                    }
+                }
+                lastChekedNumbers = checkedNumbers;
+                checkInterator++;
+                myLastNumber = checkInterator + "" + checkInterator + "" + checkInterator + "" + checkInterator;
+                return myLastNumber;
+            }
+          
+            
+            // Подбираем комбинацию
+            if(lastBull > bulls) { // В старой больше быков, меняем интератор
+                 checkedNumbers = lastChekedNumbers; // Возвращаем предыдущую версию комбинации
+            }
+           
+            
+            // Мешаем комбинацию
+            if(shuffleNum >= checkedNumbers.length) {
+                shuffleNum = 0;
+            }
+                
+            if(bulls == 2 && lastBull == 0) {
+                 checkedNumbers = jumpArrayItem(checkedNumbers)
+            } else  {
+                if(bulls == 0 && lastBull != 0) {
+                    checkedNumbers = moveArrayItem(checkedNumbers, 1);
+                    checkedNumbers = moveArrayItem(checkedNumbers, checkedNumbers.length-1);
+                } else {
+                    checkedNumbers = moveArrayItem(checkedNumbers, shuffleNum);
+                    shuffleNum++;
+                }
+            }
+            
+            //console.log("shuffleNum:", shuffleNum, "Bulls:", bulls, "lastBull:", lastBull);
+            //console.log("new:", checkedNumbers);
+            //console.log("last", lastChekedNumbers);
+            
+            lastChekedNumbers = checkedNumbers;
+            lastBull = bulls;
+            // Помещаем в массив использованных чисел
+            let resNum = checkedNumbers.join("");
+            alradyUsedNumbers.push(resNum);
+            return resNum;
+		}
+		
+        // Меняем местами рядомстоящие элементы массива
+		function moveArrayItem(array, position) {
+            if(array.length != (position+1)) {
+                let tempItem = array[position];
+                array[position] = array[position+1];
+                array[position+1] = tempItem;
+            } else { 
+                let tempItem = array[(array.length-1)];
+                array[(array.length-1)] = array[0];
+                array[0] = tempItem;
+            }
+            return array;
+        }
+        
+           // Меняем местами через 1 элемент элементы массива
+		function jumpArrayItem(array) {
+            let temp_item = array[0];
+            array[0] = array[2];
+            array[2] = temp_item;
+            return array;
+        }
+        
+        // Использовалось ли число ранее ?
+        function isAlradyUsedNumber(number) {
+            for(let i = 0; alradyUsedNumbers.length > i; i++) {
+                if(alradyUsedNumbers[i] ===  number)
+                    return true;
+            }
+            return false;
+        }
+		
+		resetAdvisor();
+		resetGame();
+		runGame();
+        
+        
+        
+        
+        
+        var sittings = {
+            width: 20, 
+            height: 20
+        }
+        
+        var player = {
+            x: null,
+            y: null
+        }
+        
+        var game = {
+            sittings,
+        }
+        
+        console.log(game);
+    </script>
+</body>
+</html> 
