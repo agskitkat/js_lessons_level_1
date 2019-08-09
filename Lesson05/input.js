@@ -8,6 +8,7 @@ function addInput(input) {
         newRow.setAttribute("class", "inpute__row");
         // input
         let newInput = document.createElement("input");
+        newInput.setAttribute("type", "file");
         let removeBtn = document.createElement("button");
         removeBtn.innerText = "Удалить";
         removeBtn.setAttribute("onclick", "removeInput(this)");
@@ -23,5 +24,4 @@ function addInput(input) {
 
 function removeInput(input) {
     input.parentNode.remove();
-
 }
