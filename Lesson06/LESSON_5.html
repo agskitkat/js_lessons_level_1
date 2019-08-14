@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>LESSON 5</title>
+	<script src="main.js" defer></script>
+	<script src="input.js" defer></script>
+	<style>
+		* {
+			block-size: border-box;
+		}
+		body, html {
+			margin:0px;
+			padding:0px;
+			display:flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			flex-direction: column;
+		}
+		.cheese {
+			border:3px solid #000;
+			width: 500px;
+			height: 500px;
+			box-shadow: 0 0 10px rgba(148, 148, 148, 0.85);
+		}
+		.cheese .cheese__row {
+			height: calc(500px / 10);
+			display: flex;
+		}
+		.cheese .cheese__row .cheese__col {
+			width: calc(500px / 10);
+			border: 1px solid #CCC;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.cheese .cheese__row .cheese__col_black {
+			background-color: #CCC;
+		}
+        .cheese__figure {
+            background-image:url("sprite.png");
+            background-repeat: no-repeat;
+			background-size: 260px;
+        }
+		.cheese__figure_king {
+			background-position: -204px -8px;
+		}
+		.cheese__figure_queen {
+			background-position: -165px -8px;
+		}
+		.cheese__figure_ladya {
+			background-position: -42px -9px;
+		}
+		.cheese__figure_fers {
+			background-position: -124px -8px;
+		}
+		.cheese__figure_horse {
+			background-position: -85px -8px;
+		}
+		.cheese__figure_peshka {
+			background-position: -4px -8px;
+		}
+
+		.cheese__figure_king_b {
+			background-position: -204px -64px;
+		}
+		.cheese__figure_queen_b {
+			background-position: -165px -64px;
+		}
+		.cheese__figure_ladya_b {
+			background-position: -42px -64px;
+		}
+		.cheese__figure_fers_b {
+			background-position: -124px -64px;
+		}
+		.cheese__figure_horse_b {
+			background-position: -85px -64px;
+		}
+		.cheese__figure_peshka_b {
+			background-position:-4px -64px;
+		}
+
+		.inputs {
+			padding-top: 40px;
+		}
+		.inputs .inpute__row {
+			width:300px;
+			display: flex;
+			justify-content: space-between;
+			padding:10px 0px;
+		}
+	</style>
+</head>
+<body>
+	<div id="cheese" class="cheese">
+		
+	</div>
+
+	<div id="inputContainer" class="inputs">
+		<div class="inpute__row">
+			<input type="text"><button onclick="addInput()">Добавить</button>
+		</div>
+	</div>
+</body>
+</html>
