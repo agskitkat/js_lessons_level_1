@@ -1,107 +1,81 @@
 'use strict';
-/**
- *
- * @type {{arColumnArray: number[], arFigureArray: *[], arRowsNames: *[]}}
- */
-const cheese = {
-    /** @private */
-    arRowsNames : ["A", "B", "C", "D", "E", "F", "G", "H"],
-    /** @private */
-    arColumnArray : [1,2,3,4,5,6,7,8],
-    /** @private */
-    arFigureSet : ['ladya','horse','fers','queen','king','fers','horse','ladya'],
-    /** @private */
-    elCheeseContainer: null,
-    buildTable() {
-        this.elCheeseContainer = document.querySelector("#cheese");
-        /**  Create rows  */
-        let isBlack = false;
-        for(let i = 0; i < 10; i++) {
-            let row = document.createElement("div");
-            row.setAttribute("class", "cheese__row");
-            this.elCheeseContainer.appendChild(row);
 
-            isBlack = !isBlack;
+var myGallery = {
+    sittings: {
+        imagesContainerClass: "myGallery__images img",
+        modalGalleryClass: "myGallery__modal",
+        modalGalleryActiveClass: "myGallery__modal_active",
+        modalGalleryArrowClass: "arrow",
+    },
+    container: null,
+    modal: null,
+    images: null,
+    currentImage: 0,
+    countImages: 0,
+    init(elementId) {
+        this.container = document.querySelector(elementId);
 
-            /**  Create cells  */
-            for(let j = 0; j < 10; j++) {
-                let classOfColl = 'cheese__col';
+        this.images = this.container.querySelectorAll("." + this.sittings.imagesContainerClass);
+        this.countImages = this.images.length;
+        for (let i = 0; i < this.images.length; i++) {
+            this.images[i].addEventListener('click', event => this.viewImage(this.images[i], i));
+        }
 
-                // Black or not
-                if(i !== 0 && i !== 9 && j !== 0 && j !== 9) {
-                    classOfColl += isBlack?' cheese__col_black':'';
-                    isBlack = !isBlack;
-                }
+        this.modal = this.container.querySelector("." + this.sittings.modalGalleryClass);
+        this.modal.addEventListener('click', event => this.hideImage(event));
 
-                let col = document.createElement("div");
-                col.setAttribute("class", classOfColl);
-                let content = this.getSymbol(i,j);
+        for (let button of this.modal.querySelectorAll("." + this.sittings.modalGalleryArrowClass)) {
+            button.addEventListener('click', event => this.moveImage(event, button));
+        }
+    },
+    viewImage(image, index) {
+        let src = image.getAttribute("data-src");
 
-                if(content.type === 'char') {
-                    col.innerText = content.result;
-                }
+        this.currentImage = index;
 
-                if(content.type === 'figure') {
-                    classOfColl += ' cheese__figure cheese__figure_' + content.result;
-                    if(content.color) {
-                        classOfColl += `_${content.color}`;
-                    }
-                    col.setAttribute("class", classOfColl + ' cheese__figure cheese__figure_' + content.result);
-                }
-
-                row.appendChild(col);
+        if (!src) {
+            return false;
+        }
+        this.imageExists(src, function (isSet) {
+            if (!isSet) {
+                return false;
             }
+            this.addClass(this.modal, this.sittings.modalGalleryActiveClass);
+            this.modal.querySelector("#image").setAttribute("src", src);
+        }.bind(this));
 
-
-        }
     },
-    getSymbol(i,j) {
-        let result = null;
-        let type = 'empty';
-        let color = null;
-
-        //  Верх и низ
-        if((i === 0 || i === 9) && j >= 1 && j < 9) {
-            result = this.arRowsNames[(j-1)];
-            type = 'char';
+    moveImage(event, button) {
+        event.stopPropagation();
+        let direction = parseInt(button.getAttribute("data-direction"));
+        let newIndex = this.currentImage + direction;
+        if(newIndex < 0) {
+            return false;
         }
-        //  Лево и право
-        if((j === 0 || j === 9) && i >= 1 && i < 9) {
-            result = this.arColumnArray[this.arColumnArray.length-(i)];
-            type = 'char';
+        if(this.countImages <= newIndex) {
+            return false;
         }
-
-        // Фигуры
-        if(i === 1 && j > 0 && j < 9) {
-            type = 'figure';
-            color = 'b';
-            result = this.arFigureSet[j-1];
-        }
-        // Фигуры
-        if(i === 8 && j > 0 && j < 9) {
-            type = 'figure';
-            color = '';
-            result = this.arFigureSet[j-1];
-        }
-        // Фигуры
-        if(i === 2 && j > 0 && j < 9) {
-            type = 'figure';
-            color = 'b';
-            result = 'peshka';
-        }
-        // Фигуры
-        if(i === 7 && j > 0 && j < 9) {
-            type = 'figure';
-            color = '';
-            result = 'peshka';
-        }
-
-        return {
-            result: result,
-            type: type,
-            color: color
+        this.viewImage(this.images[newIndex], newIndex);
+    },
+    hideImage(event) {
+        this.removeClass(this.modal, this.sittings.modalGalleryActiveClass);
+    },
+    imageExists(url, callback) {
+        var img = new Image();
+        img.onload = function () {
+            callback(true);
         };
+        img.onerror = function () {
+            callback(false);
+        };
+        img.src = url;
     },
+    removeClass(element, className) {
+        element.classList.remove(className);
+    },
+    addClass(element, className) {
+        element.classList.add(className);
+    }
+}
 
-};
-cheese.buildTable();
+myGallery.init("#gallery");
