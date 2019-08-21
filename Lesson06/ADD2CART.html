@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <script src="cart.js" defer></script>
+    <style>
+        .container {
+            margin:0 auto;
+            max-width:960px;
+        }
+        .cart {
+            padding:20px;
+            border:1px solid #DDD;
+            border-radius: 10px;
+        }
+
+        .goods {
+            margin-top:100px;
+            display:flex;
+            justify-content: space-between;
+        }
+        .good {
+            margin:5px;
+            padding:20px;
+            border:1px solid #DDD;
+            border-radius: 10px;
+        }
+        .good .name {
+            font-weight: bold;
+            padding-bottom: 10px;
+        }
+        .add2cart {
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top:20px;
+        }
+        .add2cart input {
+            margin-bottom:10px;
+            width:50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="mini_cart" class="cart">
+            <div class="cart-sum"></div>
+            <table class="cart-items">
+
+            </table>
+        </div>
+        <div id="goods" class="goods">
+            <div class="good" data-price="1000" data-id="1">
+                <div class="name">Товар 1</div>
+                Цена 1000$,
+                на складе 2 шт.
+                <div class="add2cart">
+                    <input type="number" min="1" max="2"  value="1"> <button>Добавить в корзину</button>
+                </div>
+            </div>
+            <div class="good" data-price="20" data-id="2">
+                <div class="name">Товар 2</div>
+                Цена 20$,
+                на складе 15 шт.
+                <div class="add2cart">
+                    <input type="number" min="1" max="15" value="1"> <button>Добавить в корзину</button>
+                </div>
+            </div>
+            <div class="good" data-price="100" data-id="3">
+                <div class="name">Товар 3</div>
+                Цена 100$,
+                на складе 30 шт.
+                <div class="add2cart">
+                    <input type="number" min="1" max="30"  value="1"> <button>Добавить в корзину</button>
+                </div>
+            </div>
+            <div class="good" data-price="300" data-id="4">
+                <div class="name">Товар 4</div>
+                Цена 300$,
+                на складе 10 шт.
+                <div class="add2cart">
+                    <input type="number" min="1" max="10"  value="1"> <button>Добавить в корзину</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
