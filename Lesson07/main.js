@@ -116,14 +116,17 @@ function changeDirection(event) {
 
 function snakeMotion() {
   const nextCell = game.snake[game.snake.direction];
+
   if (nextCell && !nextCell.classList.contains('snake-cell')) {
     nextCell.direction = game.snake.direction;
     nextCell.tail = game.snake;
+
     if (nextCell.eat) {
       spawnFood(FIELD_SIZE);
       game.points = game.points + 1;
       document.querySelector('.points').textContent = game.points;
     }
+
     let currentCell = game.snake.tail;
     let previousCell;
     while (currentCell.tail) {
@@ -135,6 +138,7 @@ function snakeMotion() {
     } else {
       currentCell.eat = false;
     }
+
     currentCell.className = 'cell';
     game.snake = nextCell;
     game.snake.className = 'snake-cell';

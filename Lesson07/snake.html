@@ -6,30 +6,54 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SnaleJs</title>
+    <script src="snake.js" defer></script>
     <style>
         * {
             box-sizing: border-box;
         }
-
-        .snake-table {
+        body {
+            background: black;
+            color:#FFF;
+        }
+        .snake-field {
+            margin: 0 auto;
             display:flex;
             flex-direction: column;
+            border:1px solid #FFF;
+            width:800px;
         }
 
-        .snake-table .row {
+        .snake-field .row {
             display:flex;
+            height: 40px;
         }
 
-        .snake-table .row .col{
-
+        .snake-field .row .col{
+            height: 40px;
+            width: 40px;
+            min-width: 40px;
+            transition: background-color .2s;
+        }
+        .col.snake-head {
+            background: red;
+            transition: none;
+        }
+        .col.snake-body {
+            background: green;
+            transition: background-color .2s;
+        }
+        .col.snake-food{
+            background: gray;
+        }
+        .col.snake-trap {
+            background: blueviolet;
         }
     </style>
 </head>
 <body>
 <div>
     Счёт: <span id="score"></span>
-    <div id="control" class="">Старт</div>
 </div>
-<div class="snake-table"></div>
+<div id="snake-field" class="snake-field"></div>
 </body>
 </html>
