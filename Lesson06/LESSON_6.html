@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>LESSON 6</title>
+	<link rel="stylesheet" href="css/myGalleryTheme.css">
+	<script src="main.js" defer></script>
+	<style>
+		* {
+			block-size: border-box;
+		}
+		body, html {
+			margin:0px;
+			padding:0px;
+			display:flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			flex-direction: column;
+		}
+		body {
+			background: rgba(130,130,130,1);
+			background: -moz-linear-gradient(-45deg, rgba(130,130,130,1) 0%, rgba(19,19,19,1) 100%);
+			background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(130,130,130,1)), color-stop(100%, rgba(19,19,19,1)));
+			background: -webkit-linear-gradient(-45deg, rgba(130,130,130,1) 0%, rgba(19,19,19,1) 100%);
+			background: -o-linear-gradient(-45deg, rgba(130,130,130,1) 0%, rgba(19,19,19,1) 100%);
+			background: -ms-linear-gradient(-45deg, rgba(130,130,130,1) 0%, rgba(19,19,19,1) 100%);
+			background: linear-gradient(135deg, rgba(130,130,130,1) 0%, rgba(19,19,19,1) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#828282', endColorstr='#131313', GradientType=1 );
+		}
+	</style>
+</head>
+<body>
+	<div id="gallery" class="myGallery">
+		<div class="myGallery__images">
+			<img alt="image-1" data-src="img/1.jpg" src="img/1_min.jpg">
+			<img alt="image-2" data-src="img/2.jpg" src="img/2_min.jpg">
+			<img alt="image-3" data-src="img/3.jpg" src="img/3_min.jpg">
+			<img alt="image-4" data-src="img/4.jpg" src="img/4_min.jpg">
+			<img alt="image-5" data-src="img/5.jpg" src="img/5_min.jpg">
+		</div>
+		<div class="myGallery__modal">
+			<div data-direction="-1" class="left-arrow arrow"><</div>
+			<img id="image" src="#" alt="">
+			<div data-direction="1" class="right-arrow arrow">></div>
+		</div>
+	</div>
+</body>
+</html>
